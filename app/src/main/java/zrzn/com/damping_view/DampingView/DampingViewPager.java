@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.animation.TranslateAnimation;
@@ -117,7 +118,8 @@ public class DampingViewPager extends ViewPager {
     private void recoveryPosition() {
         TranslateAnimation ta = null;
         ta = new TranslateAnimation(getLeft(), mRect.left, 0, 0);
-        ta.setDuration(300);
+        int recoveryTime = (int) Math.abs(getLeft()*1.4)+50;
+        ta.setDuration(recoveryTime);
         startAnimation(ta);
         layout(mRect.left, mRect.top, mRect.right, mRect.bottom);
         mRect.setEmpty();
