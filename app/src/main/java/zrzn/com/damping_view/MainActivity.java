@@ -1,10 +1,14 @@
 package zrzn.com.damping_view;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +21,27 @@ public class MainActivity extends AppCompatActivity {
     private String[] tabs = {"第一","第二","第三"};
     private DampingViewPager dampingViewPager;
     private TabLayout tabLayout;
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dampingViewPager = (DampingViewPager) findViewById(R.id.damp_viewpager);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        toolbar = (Toolbar) findViewById(R.id.tool_bar);
+        toolbar.setTitle("阻尼效果");
+        toolbar.setSubtitle("ZRZn");
+        toolbar.setSubtitleTextColor(Color.WHITE);
+        toolbar.setTitleTextColor(Color.WHITE);
+        toolbar.setLogo(R.mipmap.ic_launcher);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.toolbar_icon_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         fragments = new ArrayList<>();
         fragments.add(TabFragment.newInstance("第一页"));
         fragments.add(TabFragment.newInstance("第二页"));

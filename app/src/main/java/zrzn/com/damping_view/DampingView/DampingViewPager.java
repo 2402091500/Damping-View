@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.animation.TranslateAnimation;
@@ -21,7 +20,6 @@ public class DampingViewPager extends ViewPager {
     private float preX = 0f;
     private float firstX = 0f;
     private float RATIO = 0.8f;//摩擦系数
-    private boolean isOver = false;
     private float limit = 0f;//这是你设置当手指滑动超过多少时viewPager才开始滑动，默认是0
 
     public DampingViewPager(Context context) {
@@ -67,6 +65,7 @@ public class DampingViewPager extends ViewPager {
                     float nowX = arg0.getX();
                     float offset = nowX - preX;
                     RATIO = (float) (0.8f-((Math.abs(nowX-firstX))*0.001));
+                        RATIO = RATIO < 0 ? 0:RATIO;
                     preX = nowX;
                     if (currentItem == 0) {
                         if (offset > limit) {//手指滑动的距离大于设定值
